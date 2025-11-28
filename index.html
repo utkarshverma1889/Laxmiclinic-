@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laxmi Clinic - Dr. Pramod Kumar Singh | Homeopathy Specialist</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Poppins', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .gradient-green { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+        .card-shadow { box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+        .pulse-dot { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .clinic-card:hover { transform: translateY(-5px); }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    
+    <!-- Header -->
+    <header class="gradient-bg text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center">
+                    <span class="text-3xl">🏥</span>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold" id="clinicNameHeader">Laxmi Clinic</h1>
+                    <p class="text-sm opacity-90">Dr. Pramod Kumar Singh | Homeopathy Specialist</p>
+                </div>
+            </div>
+            <button onclick="showManagerLogin()" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg text-sm transition">
+                👨‍⚕️ Manager
+            </button>
+        </div>
+    </header>
+
+    <!-- Doctor Info Banner -->
+    <div class="bg-white border-b">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex flex-wrap items-center justify-center gap-4 text-sm">
+                <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full">🎓 BHMS, MD (Homeopathy)</span>
+                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full">🦴 Liver & Bone Specialist</span>
+                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full">🏥 2 Clinic Locations</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        
+        <!-- Navigation Tabs -->
+        <div class="flex justify-center gap-4 mb-8 flex-wrap">
+            <button onclick="showSection('booking')" id="tabBooking" class="tab-btn bg-purple-600 text-white px-6 py-3 rounded-full font-medium transition hover:scale-105">
+                📅 Appointment Book करें
+            </button>
+            <button onclick="showSection('status')" id="tabStatus" class="tab-btn bg-white text-gray-700 px-6 py-3 rounded-full font-medium transition hover:scale-105">
+                🔍 Status Check करें
+            </button>
+            <button onclick="showSection('about')" id="tabAbout" class="tab-btn bg-white text-gray-700 px-6 py-3 rounded-full font-medium transition hover:scale-105">
+                ℹ️ Clinic Info
+            </button>
+        </div>
+
+        <!-- Booking Section -->
+        <section id="bookingSection" class="max-w-lg mx-auto">
+            <div class="bg-white rounded-2xl card-shadow p-8">
+                <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">🗓️ Appointment Book करें</h2>
+                
+                <form id="appointmentForm" class="space-y-5">
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">👤 आपका नाम</label>
+                        <input type="text" id="patientName" required placeholder="अपना पूरा नाम लिखें" 
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none transition">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">📱 Mobile Number</label>
+                        <input type="tel" id="patientMobile" required placeholder="10 digit mobile number" pattern="[0-9]{10}"
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none transition">
+                    </div>
+
+                    <!-- Clinic Selection -->
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-3">🏥 Clinic चुनें</label>
+                        <div class="grid gap-3">
+                            <label class="clinic-card cursor-pointer block p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 transition-all duration-300 has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50">
+                                <input type="radio" name="clinicSelect" value="vinay_khand" required class="hidden">
+                                <div class="flex items-start gap-3">
+                                    <span class="text-2xl">🏥</span>
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-gray-800">Vinay Khand Clinic</h4>
+                                        <p class="text-sm text-gray-600">📍 E1/577 Vinay Khand, Gomti Nagar</p>
+                                        <p class="text-sm text-green-600">⏰ 10:00 AM - 1:00 PM</p>
+                                        <p class="text-sm text-red-500">🚫 Wednesday बंद</p>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="clinic-card cursor-pointer block p-4 border-2 border-gray-200 rounded-xl hover:border-purple-500 transition-all duration-300 has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50">
+                                <input type="radio" name="clinicSelect" value="vibhav_khand" required class="hidden">
+                                <div class="flex items-start gap-3">
+                                    <span class="text-2xl">🏥</span>
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-gray-800">Vibhav Khand Clinic</h4>
+                                        <p class="text-sm text-gray-600">📍 2/44 Vibhav Khand, Gomti Nagar</p>
+                                        <p class="text-sm text-green-600">⏰ 4:00 PM - 7:00 PM</p>
+                                        <p class="text-sm text-red-500">🚫 Sunday बंद</p>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">📆 Date चुनें</label>
+                        <input type="date" id="appointmentDate" required
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none transition">
+                        <p id="dayWarning" class="text-red-500 text-sm mt-1 hidden"></p>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">⏰ Time Slot चुनें</label>
+                        <select id="appointmentTime" required
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none transition">
+                            <option value="">-- पहले Clinic चुनें --</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">📝 समस्या बताएं</label>
+                        <textarea id="patientProblem" placeholder="अपनी समस्या बताएं (जैसे: Liver problem, Joint pain, Fever, etc.)" rows="3"
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none transition resize-none"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="w-full gradient-bg text-white py-4 rounded-xl font-bold text-lg hover:opacity-90 transition transform hover:scale-[1.02]">
+                        ✅ Appointment Book करें
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Status Check Section -->
+        <section id="statusSection" class="max-w-lg mx-auto hidden">
+            <div class="bg-white rounded-2xl card-shadow p-8">
+                <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">🔍 Appointment Status Check करें</h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">📱 अपना Mobile Number डालें</label>
+                        <input type="tel" id="checkMobile" placeholder="10 digit mobile number" pattern="[0-9]{10}"
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none transition">
+                    </div>
+                    <button onclick="checkStatus()" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition">
+                        🔍 Status Check करें
+                    </button>
+                </div>
+                
+                <div id="statusResult" class="mt-6 hidden"></div>
+            </div>
+        </section>
+
+        <!-- About/Clinic Info Section -->
+        <section id="aboutSection" class="max-w-4xl mx-auto hidden">
+            <!-- Doctor Profile -->
+            <div class="bg-white rounded-2xl card-shadow p-8 mb-6">
+                <div class="flex flex-col md:flex-row items-center gap-6">
+                    <div class="w-32 h-32 gradient-bg rounded-full flex items-center justify-center">
+                        <span class="text-6xl">👨‍⚕️</span>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <h2 class="text-3xl font-bold text-gray-800">Dr. Pramod Kumar Singh</h2>
+                        <p class="text-purple-600 font-semibold text-lg">BHMS, MD (Homeopathy)</p>
+                        <div class="flex flex-wrap gap-2 mt-3 justify-center md:justify-start">
+                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">🦴 Bone Specialist</span>
+                            <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">🫁 Liver Specialist</span>
+                            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">🤒 General Treatment</span>
+                        </div>
+                        <p class="text-gray-600 mt-3">Homeopathy के माध्यम से Liver, हड्डियों की समस्या, बुखार आदि का इलाज</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Two Clinics -->
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <!-- Clinic 1 - Vinay Khand -->
+                <div class="bg-white rounded-2xl card-shadow p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                            <span class="text-2xl">🏥</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800">Clinic 1 - Vinay Khand</h3>
+                            <p class="text-sm text-purple-600">Morning Clinic</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
+                            <span class="text-xl">📍</span>
+                            <div>
+                                <p class="font-medium text-gray-800">Address</p>
+                                <p class="text-gray-600">E1/577 Vinay Khand, Gomti Nagar, Lucknow</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-3 p-3 bg-green-50 rounded-xl">
+                            <span class="text-xl">⏰</span>
+                            <div>
+                                <p class="font-medium text-gray-800">Timing</p>
+                                <p class="text-green-600 font-semibold">10:00 AM - 1:00 PM</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-3 p-3 bg-red-50 rounded-xl">
+                            <span class="text-xl">🚫</span>
+                            <div>
+                                <p class="font-medium text-gray-800">Weekly Off</p>
+                                <p class="text-red-600 font-semibold">Wednesday (बुधवार) बंद</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 rounded-xl overflow-hidden h-48">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.0!2d81.02!3d26.85!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zVmluYXkgS2hhbmQgR29tdGkgTmFnYXI!5e0!3m2!1sen!2sin!4v1234567890" 
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+
+                <!-- Clinic 2 - Vibhav Khand -->
+                <div class="bg-white rounded-2xl card-shadow p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                            <span class="text-2xl">🏥</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800">Clinic 2 - Vibhav Khand</h3>
+                            <p class="text-sm text-green-600">Evening Clinic</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
+                            <span class="text-xl">📍</span>
+                            <div>
+                                <p class="font-medium text-gray-800">Address</p>
+                                <p class="text-gray-600">2/44 Vibhav Khand, Gomti Nagar, Lucknow</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-3 p-3 bg-green-50 rounded-xl">
+                            <span class="text-xl">⏰</span>
+                            <div>
+                                <p class="font-medium text-gray-800">Timing</p>
+                                <p class="text-green-600 font-semibold">4:00 PM - 7:00 PM</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-3 p-3 bg-red-50 rounded-xl">
+                            <span class="text-xl">🚫</span>
+                            <div>
+                                <p class="font-medium text-gray-800">Weekly Off</p>
+                                <p class="text-red-600 font-semibold">Sunday (रविवार) बंद</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 rounded-xl overflow-hidden h-48">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.0!2d81.03!3d26.86!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zVmliaGF2IEtoYW5kIEdvbXRpIE5hZ2Fy!5e0!3m2!1sen!2sin!4v1234567890" 
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="bg-white rounded-2xl card-shadow p-6">
+                <div class="flex flex-wrap items-center justify-center gap-6">
+                    <a href="tel:8726860517" class="flex items-center gap-3 bg-green-100 hover:bg-green-200 px-6 py-4 rounded-xl transition">
+                        <span class="text-3xl">📞</span>
+                        <div>
+                            <p class="text-sm text-gray-600">Call Now</p>
+                            <p class="font-bold text-green-700 text-lg">8726860517</p>
+                        </div>
+                    </a>
+                    <a href="https://wa.me/918726860517" target="_blank" class="flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-6 py-4 rounded-xl transition">
+                        <span class="text-3xl">💬</span>
+                        <div>
+                            <p class="text-sm opacity-90">WhatsApp</p>
+                            <p class="font-bold text-lg">Message करें</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-lg font-semibold">🏥 Laxmi Clinic</p>
+            <p class="text-gray-400">Dr. Pramod Kumar Singh - Homeopathy Specialist</p>
+            <p class="text-gray-500 text-sm mt-2">📞 8726860517</p>
+        </div>
+    </footer>
+
+    <!-- Manager Login Modal -->
+    <div id="managerLoginModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 card-shadow">
+            <h3 class="text-2xl font-bold text-center mb-6">🔐 Manager Login</h3>
+            <div class="space-y-4">
+                <input type="password" id="managerPassword" placeholder="Password डालें" 
+                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                <div class="flex gap-3">
+                    <button onclick="closeManagerLogin()" class="flex-1 bg-gray-200 text-gray-700 py-3 rounded-xl font-medium hover:bg-gray-300 transition">Cancel</button>
+                    <button onclick="loginManager()" class="flex-1 gradient-bg text-white py-3 rounded-xl font-medium hover:opacity-90 transition">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manager Dashboard Modal -->
+    <div id="managerDashboard" class="fixed inset-0 bg-gray-100 z-50 hidden overflow-auto">
+        <div class="gradient-bg text-white py-4 shadow-lg sticky top-0">
+            <div class="container mx-auto px-4 flex justify-between items-center">
+                <h2 class="text-xl font-bold">👨‍⚕️ Manager Dashboard - Laxmi Clinic</h2>
+                <button onclick="closeManagerDashboard()" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition">
+                    ✖ बंद करें
+                </button>
+            </div>
+        </div>
+        
+        <div class="container mx-auto px-4 py-6">
+            <!-- Dashboard Tabs -->
+            <div class="flex gap-4 mb-6 flex-wrap">
+                <button onclick="showDashboardTab('appointments')" id="dashTabAppointments" class="dash-tab bg-purple-600 text-white px-5 py-2 rounded-full font-medium transition">
+                    📋 Appointments
+                </button>
+                <button onclick="showDashboardTab('settings')" id="dashTabSettings" class="dash-tab bg-white text-gray-700 px-5 py-2 rounded-full font-medium transition">
+                    ⚙️ Clinic Settings
+                </button>
+            </div>
+
+            <!-- Filter by Clinic -->
+            <div id="clinicFilter" class="mb-4 flex gap-2 flex-wrap">
+                <button onclick="filterAppointments('all')" class="filter-btn bg-purple-600 text-white px-4 py-2 rounded-lg text-sm">All</button>
+                <button onclick="filterAppointments('vinay_khand')" class="filter-btn bg-white text-gray-700 px-4 py-2 rounded-lg text-sm">Vinay Khand</button>
+                <button onclick="filterAppointments('vibhav_khand')" class="filter-btn bg-white text-gray-700 px-4 py-2 rounded-lg text-sm">Vibhav Khand</button>
+            </div>
+            
+            <!-- Appointments Tab -->
+            <div id="appointmentsTab">
+                <div class="grid gap-4" id="appointmentsList">
+                    <!-- Appointments will be loaded here -->
+                </div>
+            </div>
+            
+            <!-- Settings Tab -->
+            <div id="settingsTab" class="hidden">
+                <div class="bg-white rounded-2xl card-shadow p-6 max-w-2xl">
+                    <h3 class="text-xl font-bold mb-6">⚙️ Clinic Details Edit करें</h3>
+                    
+                    <form id="settingsForm" class="space-y-4">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">👨‍⚕️ Doctor Name</label>
+                            <input type="text" id="settingDoctorName" 
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">🎓 Qualification</label>
+                            <input type="text" id="settingQualification" 
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">💊 Specialization</label>
+                            <input type="text" id="settingSpecialization" 
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                        </div>
+
+                        <hr class="my-4">
+                        <h4 class="font-bold text-gray-800">🏥 Clinic 1 - Vinay Khand</h4>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">📍 Address</label>
+                            <input type="text" id="settingAddress1" 
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">⏰ Timing</label>
+                            <input type="text" id="settingTiming1" 
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">🚫 Off Day</label>
+                            <input type="text" id="settingOff1" 
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">🗺️ Google Map URL</label>
+                            <input type="text" id="settingMap1" 
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                        </div>
+
+                        <hr class="my-4">
+                        <h4 class="font-bold text-gray-800">🏥 Clinic 2 - Vibhav Khand</h4>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">📍 Address</label>
+                            <input type="text" id="settingAddress2" 
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">⏰ Timing</label>
+                            <input type="text" id="settingTiming2" 
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">🚫 Off Day</label>
+                            <input type="text" id="settingOff2" 
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">🗺️ Google Map URL</label>
+                            <input type="text" id="settingMap2" 
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                        </div>
+
+                        <hr class="my-4">
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">📞 Contact Number</label>
+                            <input type="text" id="settingContact" 
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">🔐 New Password (optional)</label>
+                            <input type="password" id="settingPassword" placeholder="नया password डालें"
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                        </div>
+                        
+                        <button type="submit" class="w-full gradient-bg text-white py-4 rounded-xl font-bold text-lg hover:opacity-90 transition">
+                            💾 Save Changes
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 card-shadow text-center">
+            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-5xl">✅</span>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Appointment Booked!</h3>
+            <p class="text-gray-600 mb-2">आपकी appointment request भेज दी गई है।</p>
+            <p class="text-sm text-gray-500 mb-2">Booking ID: <span id="bookingId" class="font-bold text-purple-600"></span></p>
+            <p class="text-sm text-gray-500 mb-4" id="successClinicInfo"></p>
+            <p class="text-sm text-gray-500 mb-6">Status check करने के लिए अपना mobile number use करें।</p>
+            <button onclick="closeSuccessModal()" class="gradient-bg text-white px-8 py-3 rounded-xl font-medium hover:opacity-90 transition">
+                ठीक है
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Data
+        let clinicData = JSON.parse(localStorage.getItem('laxmiClinicData')) || {
+            doctorName: 'Dr. Pramod Kumar Singh',
+            qualification: 'BHMS, MD (Homeopathy)',
+            specialization: 'Liver & Bone Specialist, General Treatment',
+            clinic1: {
+                name: 'Vinay Khand',
+                address: 'E1/577 Vinay Khand, Gomti Nagar, Lucknow',
+                timing: '10:00 AM - 1:00 PM',
+                offDay: 'Wednesday',
+                offDayNum: 3,
+                mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.0!2d81.02!3d26.85!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zVmluYXkgS2hhbmQ!5e0!3m2!1sen!2sin!4v1234567890'
+            },
+            clinic2: {
+                name: 'Vibhav Khand',
+                address: '2/44 Vibhav Khand, Gomti Nagar, Lucknow',
+                timing: '4:00 PM - 7:00 PM',
+                offDay: 'Sunday',
+                offDayNum: 0,
+                mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.0!2d81.03!3d26.86!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zVmliaGF2IEtoYW5k!5e0!3m2!1sen!2sin!4v1234567890'
+            },
+            contact: '8726860517',
+            password: 'admin123'
+        };
+
+        let appointments = JSON.parse(localStorage.getItem('laxmiClinicAppointments')) || [];
+        let currentFilter = 'all';
+
+        // Set minimum date to today
+        document.getElementById('appointmentDate').min = new Date().toISOString().split('T')[0];
+
+        // Clinic Selection Handler
+        document.querySelectorAll('input[name="clinicSelect"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                updateTimeSlots(this.value);
+                checkDateValidity();
+            });
+        });
+
+        // Date Change Handler
+        document.getElementById('appointmentDate').addEventListener('change', checkDateValidity);
+
+        function updateTimeSlots(clinic) {
+            const timeSelect = document.getElementById('appointmentTime');
+            timeSelect.innerHTML = '';
+            
+            if (clinic === 'vinay_khand') {
+                timeSelect.innerHTML = `
+                    <option value="">-- समय चुनें --</option>
+                    <option value="10:00 AM - 10:30 AM">10:00 AM - 10:30 AM</option>
+                    <option value="10:30 AM - 11:00 AM">10:30 AM - 11:00 AM</option>
+                    <option value="11:00 AM - 11:30 AM">11:00 AM - 11:30 AM</option>
+                    <option value="11:30 AM - 12:00 PM">11:30 AM - 12:00 PM</option>
+                    <option value="12:00 PM - 12:30 PM">12:00 PM - 12:30 PM</option>
+                    <option value="12:30 PM - 1:00 PM">12:30 PM - 1:00 PM</option>
+                `;
+            } else if (clinic === 'vibhav_khand') {
+                timeSelect.innerHTML = `
+                    <option value="">-- समय चुनें --</option>
+                    <option value="4:00 PM - 4:30 PM">4:00 PM - 4:30 PM</option>
+                    <option value="4:30 PM - 5:00 PM">4:30 PM - 5:00 PM</option>
+                    <option value="5:00 PM - 5:30 PM">5:00 PM - 5:30 PM</option>
+                    <option value="5:30 PM - 6:00 PM">5:30 PM - 6:00 PM</option>
+                    <option value="6:00 PM - 6:30 PM">6:00 PM - 6:30 PM</option>
+                    <option value="6:30 PM - 7:00 PM">6:30 PM - 7:00 PM</option>
+                `;
+            }
+        }
+
+        function checkDateValidity() {
+            const dateInput = document.getElementById('appointmentDate');
+            const warning = document.getElementById('dayWarning');
+            const selectedClinic = document.querySelector('input[name="clinicSelect"]:checked');
+            
+            if (!dateInput.value || !selectedClinic) {
+                warning.classList.add('hidden');
+                return true;
+            }
+            
+            const selectedDate = new Date(dateInput.value);
+            const dayOfWeek = selectedDate.getDay();
+            
+            if (selectedClinic.value === 'vinay_khand' && dayOfWeek === 3) {
+                warning.textContent = '⚠️ Wednesday को Vinay Khand Clinic बंद रहती है। कृपया दूसरी date चुनें।';
+                warning.classList.remove('hidden');
+                return false;
+            } else if (selectedClinic.value === 'vibhav_khand' && dayOfWeek === 0) {
+                warning.textContent = '⚠️ Sunday को Vibhav Khand Clinic बंद रहती है। कृपया दूसरी date चुनें।';
+                warning.classList.remove('hidden');
+                return false;
+            }
+            
+            warning.classList.add('hidden');
+            return true;
+        }
+
+        // Section Navigation
+        function showSection(section) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-purple-600', 'text-white');
+                btn.classList.add('bg-white', 'text-gray-700');
+            });
+            
+            document.getElementById('bookingSection').classList.add('hidden');
+            document.getElementById('statusSection').classList.add('hidden');
+            document.getElementById('aboutSection').classList.add('hidden');
+            
+            document.getElementById(`tab${section.charAt(0).toUpperCase() + section.slice(1)}`).classList.remove('bg-white', 'text-gray-700');
+            document.getElementById(`tab${section.charAt(0).toUpperCase() + section.slice(1)}`).classList.add('bg-purple-600', 'text-white');
+            document.getElementById(`${section}Section`).classList.remove('hidden');
+        }
+
+        // Appointment Form Submit
+        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!checkDateValidity()) {
+                alert('⚠️ कृपया clinic की छुट्टी वाले दिन के अलावा कोई और date चुनें।');
+                return;
+            }
+            
+            const selectedClinic = document.querySelector('input[name="clinicSelect"]:checked');
+            const clinicName = selectedClinic.value === 'vinay_khand' ? 'Vinay Khand (Morning)' : 'Vibhav Khand (Evening)';
+            const clinicAddress = selectedClinic.value === 'vinay_khand' ? clinicData.clinic1.address : clinicData.clinic2.address;
+            
+            const appointment = {
+                id: 'LX' + Date.now().toString().slice(-6),
+                name: document.getElementById('patientName').value,
+                mobile: document.getElementById('patientMobile').value,
+                clinic: selectedClinic.value,
+                clinicName: clinicName,
+                clinicAddress: clinicAddress,
+                date: document.getElementById('appointmentDate').value,
+                time: document.getElementById('appointmentTime').value,
+                problem: document.getElementById('patientProblem').value,
+                status: 'pending',
+                createdAt: new Date().toISOString()
+            };
+            
+            appointments.push(appointment);
+            localStorage.setItem('laxmiClinicAppointments', JSON.stringify(appointments));
+            
+            // Show success modal
+            document.getElementById('bookingId').textContent = appointment.id;
+            document.getElementById('successClinicInfo').innerHTML = `🏥 ${clinicName}<br>📍 ${clinicAddress}`;
+            document.getElementById('successModal').classList.remove('hidden');
+            
+            // Send WhatsApp notification to manager
+            sendWhatsAppNotification(appointment);
+            
+            // Reset form
+            this.reset();
+            document.getElementById('appointmentDate').min = new Date().toISOString().split('T')[0];
+            document.getElementById('appointmentTime').innerHTML = '<option value="">-- पहले Clinic चुनें --</option>';
+            document.getElementById('dayWarning').classList.add('hidden');
+        });
+
+        // Send WhatsApp Notification
+        function sendWhatsAppNotification(apt) {
+            const message = `🏥 *Laxmi Clinic - New Appointment*%0A%0A👤 Name: ${apt.name}%0A📱 Mobile: ${apt.mobile}%0A🏥 Clinic: ${apt.clinicName}%0A📍 Address: ${apt.clinicAddress}%0A📅 Date: ${apt.date}%0A⏰ Time: ${apt.time}%0A📝 Problem: ${apt.problem || 'Not specified'}%0A%0ABooking ID: ${apt.id}`;
+            window.open(`https://wa.me/91${clinicData.contact}?text=${message}`, '_blank');
+        }
+
+        // Check Status
+        function checkStatus() {
+            const mobile = document.getElementById('checkMobile').value;
+            const resultDiv = document.getElementById('statusResult');
+            
+            if (!mobile || mobile.length !== 10) {
+                resultDiv.innerHTML = '<div class="p-4 bg-red-100 text-red-700 rounded-xl">कृपया valid 10 digit mobile number डालें</div>';
+                resultDiv.classList.remove('hidden');
+                return;
+            }
+            
+            const userAppointments = appointments.filter(apt => apt.mobile === mobile);
+            
+            if (userAppointments.length === 0) {
+                resultDiv.innerHTML = '<div class="p-4 bg-yellow-100 text-yellow-700 rounded-xl">इस number से कोई appointment नहीं मिली</div>';
+            } else {
+                let html = '<div class="space-y-3">';
+                userAppointments.reverse().forEach(apt => {
+                    let statusColor, statusText, statusIcon;
+                    switch(apt.status) {
+                        case 'approved':
+                            statusColor = 'bg-green-100 border-green-500 text-green-700';
+                            statusText = '✅ Approved';
+                            statusIcon = '🎉';
+                            break;
+                        case 'rejected':
+                            statusColor = 'bg-red-100 border-red-500 text-red-700';
+                            statusText = '❌ Rejected';
+                            statusIcon = '😔';
+                            break;
+                        default:
+                            statusColor = 'bg-yellow-100 border-yellow-500 text-yellow-700';
+                            statusText = '⏳ Pending';
+                            statusIcon = '⌛';
+                    }
+                    
+                    html += `
+                        <div class="p-4 ${statusColor} border-l-4 rounded-xl">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="font-bold">${statusIcon} ${apt.name}</p>
+                                    <p class="text-sm">🏥 ${apt.clinicName || 'Clinic'}</p>
+                                    <p class="text-sm">📅 ${apt.date} | ⏰ ${apt.time}</p>
+                                    <p class="text-sm">ID: ${apt.id}</p>
+                                </div>
+                                <span class="font-bold text-sm">${statusText}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+                resultDiv.innerHTML = html;
+            }
+            
+            resultDiv.classList.remove('hidden');
+        }
+
+        // Manager Login
+        function showManagerLogin() {
+            document.getElementById('managerLoginModal').classList.remove('hidden');
+        }
+
+        function closeManagerLogin() {
+            document.getElementById('managerLoginModal').classList.add('hidden');
+            document.getElementById('managerPassword').value = '';
+        }
+
+        function loginManager() {
+            const password = document.getElementById('managerPassword').value;
+            if (password === clinicData.password) {
+                closeManagerLogin();
+                openManagerDashboard();
+            } else {
+                alert('❌ गलत Password!');
+            }
+        }
+
+        // Manager Dashboard
+        function openManagerDashboard() {
+            document.getElementById('managerDashboard').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            loadAppointments();
+            loadSettings();
+        }
+
+        function closeManagerDashboard() {
+            document.getElementById('managerDashboard').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function showDashboardTab(tab) {
+            document.querySelectorAll('.dash-tab').forEach(btn => {
+                btn.classList.remove('bg-purple-600', 'text-white');
+                btn.classList.add('bg-white', 'text-gray-700');
+            });
+            
+            document.getElementById('appointmentsTab').classList.add('hidden');
+            document.getElementById('settingsTab').classList.add('hidden');
+            document.getElementById('clinicFilter').classList.add('hidden');
+            
+            document.getElementById(`dashTab${tab.charAt(0).toUpperCase() + tab.slice(1)}`).classList.remove('bg-white', 'text-gray-700');
+            document.getElementById(`dashTab${tab.charAt(0).toUpperCase() + tab.slice(1)}`).classList.add('bg-purple-600', 'text-white');
+            document.getElementById(`${tab}Tab`).classList.remove('hidden');
+            
+            if (tab === 'appointments') {
+                document.getElementById('clinicFilter').classList.remove('hidden');
+            }
+        }
+
+        function filterAppointments(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-purple-600', 'text-white');
+                btn.classList.add('bg-white', 'text-gray-700');
+            });
+            event.target.classList.remove('bg-white', 'text-gray-700');
+            event.target.classList.add('bg-purple-600', 'text-white');
+            loadAppointments();
+        }
+
+        function loadAppointments() {
+            const listDiv = document.getElementById('appointmentsList');
+            
+            let filteredAppointments = [...appointments];
+            if (currentFilter !== 'all') {
+                filteredAppointments = appointments.filter(apt => apt.clinic === currentFilter);
+            }
+            
+            if (filteredAppointments.length === 0) {
+                listDiv.innerHTML = '<div class="bg-white p-8 rounded-2xl text-center text-gray-500">कोई appointment नहीं है</div>';
+                return;
+            }
+            
+            // Sort by date (newest first)
+            const sortedAppointments = [...filteredAppointments].reverse();
+            
+            let html = '';
+            sortedAppointments.forEach((apt, index) => {
+                let statusBadge;
+                switch(apt.status) {
+                    case 'approved':
+                        statusBadge = '<span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">✅ Approved</span>';
+                        break;
+                    case 'rejected':
+                        statusBadge = '<span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-medium">❌ Rejected</span>';
+                        break;
+                    default:
+                        statusBadge = '<span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-medium pulse-dot">⏳ Pending</span>';
+                }
+
+                const clinicBadge = apt.clinic === 'vinay_khand' 
+                    ? '<span class="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs">Vinay Khand</span>'
+                    : '<span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Vibhav Khand</span>';
+                
+                html += `
+                    <div class="bg-white p-5 rounded-2xl card-shadow">
+                        <div class="flex flex-wrap justify-between items-start gap-4 mb-4">
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-800">👤 ${apt.name}</h4>
+                                <p class="text-gray-600">📱 ${apt.mobile}</p>
+                                <div class="mt-1">${clinicBadge}</div>
+                            </div>
+                            ${statusBadge}
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 mb-4">
+                            <div class="bg-gray-50 p-3 rounded-lg">
+                                <p class="text-sm text-gray-500">📅 Date</p>
+                                <p class="font-medium">${apt.date}</p>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded-lg">
+                                <p class="text-sm text-gray-500">⏰ Time</p>
+                                <p class="font-medium">${apt.time}</p>
+                            </div>
+                        </div>
+                        ${apt.problem ? `<div class="bg-blue-50 p-3 rounded-lg mb-4"><p class="text-sm text-gray-500">📝 Problem</p><p class="text-gray-700">${apt.problem}</p></div>` : ''}
+                        <div class="text-xs text-gray-400 mb-3">ID: ${apt.id}</div>
+                        ${apt.status === 'pending' ? `
+                            <div class="flex gap-3">
+                                <button onclick="updateStatus('${apt.id}', 'approved')" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-medium transition">
+                                    ✅ Accept करें
+                                </button>
+                                <button onclick="updateStatus('${apt.id}', 'rejected')" class="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg font-medium transition">
+                                    ❌ Reject करें
+                                </button>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+            
+            listDiv.innerHTML = html;
+        }
+
+        function updateStatus(id, status) {
+            const index = appointments.findIndex(apt => apt.id === id);
+            if (index !== -1) {
+                appointments[index].status = status;
+                localStorage.setItem('laxmiClinicAppointments', JSON.stringify(appointments));
+                
+                // Send WhatsApp to patient
+                const apt = appointments[index];
+                const statusText = status === 'approved' ? '✅ APPROVED' : '❌ REJECTED';
+                const statusMsg = status === 'approved' 
+                    ? 'आपकी appointment confirm हो गई है। कृपया समय पर पहुँचें।' 
+                    : 'माफ़ कीजिए, आपकी appointment reject हो गई है। कृपया दूसरी date के लिए book करें।';
+                const message = `🏥 *Laxmi Clinic*%0A*Dr. Pramod Kumar Singh*%0A%0AHello ${apt.name},%0A%0AYour appointment status: ${statusText}%0A%0A🏥 Clinic: ${apt.clinicName}%0A📅 Date: ${apt.date}%0A⏰ Time: ${apt.time}%0A%0A${statusMsg}%0A%0ABooking ID: ${apt.id}%0A📞 Contact: ${clinicData.contact}`;
+                window.open(`https://wa.me/91${apt.mobile}?text=${message}`, '_blank');
+                
+                loadAppointments();
+            }
+        }
+
+        function loadSettings() {
+            document.getElementById('settingDoctorName').value = clinicData.doctorName;
+            document.getElementById('settingQualification').value = clinicData.qualification;
+            document.getElementById('settingSpecialization').value = clinicData.specialization;
+            document.getElementById('settingAddress1').value = clinicData.clinic1.address;
+            document.getElementById('settingTiming1').value = clinicData.clinic1.timing;
+            document.getElementById('settingOff1').value = clinicData.clinic1.offDay;
+            document.getElementById('settingMap1').value = clinicData.clinic1.mapUrl;
+            document.getElementById('settingAddress2').value = clinicData.clinic2.address;
+            document.getElementById('settingTiming2').value = clinicData.clinic2.timing;
+            document.getElementById('settingOff2').value = clinicData.clinic2.offDay;
+            document.getElementById('settingMap2').value = clinicData.clinic2.mapUrl;
+            document.getElementById('settingContact').value = clinicData.contact;
+        }
+
+        document.getElementById('settingsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            clinicData.doctorName = document.getElementById('settingDoctorName').value;
+            clinicData.qualification = document.getElementById('settingQualification').value;
+            clinicData.specialization = document.getElementById('settingSpecialization').value;
+            clinicData.clinic1.address = document.getElementById('settingAddress1').value;
+            clinicData.clinic1.timing = document.getElementById('settingTiming1').value;
+            clinicData.clinic1.offDay = document.getElementById('settingOff1').value;
+            clinicData.clinic1.mapUrl = document.getElementById('settingMap1').value;
+            clinicData.clinic2.address = document.getElementById('settingAddress2').value;
+            clinicData.clinic2.timing = document.getElementById('settingTiming2').value;
+            clinicData.clinic2.offDay = document.getElementById('settingOff2').value;
+            clinicData.clinic2.mapUrl = document.getElementById('settingMap2').value;
+            clinicData.contact = document.getElementById('settingContact').value;
+            
+            const newPassword = document.getElementById('settingPassword').value;
+            if (newPassword) {
+                clinicData.password = newPassword;
+            }
+            
+            localStorage.setItem('laxmiClinicData', JSON.stringify(clinicData));
+            
+            alert('✅ Settings saved successfully! Page reload होगा।');
+            location.reload();
+        });
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.add('hidden');
+        }
+
+        // Close modals on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeManagerLogin();
+                closeSuccessModal();
+            }
+        });
+
+        // Enter key for login
+        document.getElementById('managerPassword').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') loginManager();
+        });
+    </script>
+</body>
+</html>
